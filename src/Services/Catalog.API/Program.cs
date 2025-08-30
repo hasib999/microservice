@@ -1,4 +1,8 @@
 
+using Catalog.API.HostingService;
+using Catalog.API.Interfaces.Manager;
+using Catalog.API.Manager;
+
 namespace Catalog.API
 {
     public class Program
@@ -12,6 +16,8 @@ namespace Catalog.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.AddHostedService<AppHostedService>();
+            builder.Services.AddScoped<IProductManager, ProductManager>();
 
             var app = builder.Build();
 
