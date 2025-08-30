@@ -1,5 +1,6 @@
 ﻿using Catalog.API.Interfaces.Manager;
 using Catalog.API.Models;
+using CoreApiResponse;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -8,7 +9,7 @@ namespace Catalog.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CatalogController : ControllerBase
+    public class CatalogController : BaseController
     {
         IProductManager _productManager;
         public CatalogController(IProductManager productManager)
@@ -19,8 +20,15 @@ namespace Catalog.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<Product>), (int)HttpStatusCode.OK)]
         public IActionResult GetProducts()
         {
-            var products = _productManager.GetAll();
-            return Ok(products);
+            try
+            {
+                var products = _productManager.GetAll();
+                return CustomResult("Data load successfully.", products);
+            }
+            catch (Exception ex)
+            {
+                return CustomResult(ex.Message, HttpStatusCode.BadRequest);
+            }
         }
     }
 }
