@@ -1,4 +1,6 @@
 
+using Basket.API.Repositories;
+
 namespace Basket.API
 {
     public class Program
@@ -8,7 +10,8 @@ namespace Basket.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddStackExchangeRedisCache(op => op.Configuration = builder.Configuration.GetConnectionString("BasketDB"));
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
