@@ -1,5 +1,7 @@
 
+using Basket.API.gRPCServices;
 using Basket.API.Repositories;
+using Discount.gRPC.Protos;
 
 namespace Basket.API
 {
@@ -15,7 +17,11 @@ namespace Basket.API
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-
+            builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
+                (
+                    op => op.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountGrpcUrl"))
+                );
+            builder.Services.AddScoped<DiscountGrpcService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

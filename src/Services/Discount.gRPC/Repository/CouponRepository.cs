@@ -46,7 +46,7 @@ namespace Discount.gRPC.Repository
                 ("SELECT * FROM Coupon Where ProductId=@ProductId", new { ProductId = productId });
             if (coupon == null)
             {
-                return new Coupon() { Amount = 0, ProductName = "No Discount" };
+                return new Coupon() { Amount = 0, ProductName = "No Discount",ProductId = "No Discount",Description="No Discount" };
             }
             return coupon;
         }
