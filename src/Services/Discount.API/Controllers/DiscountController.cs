@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Discount.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class DiscountController : BaseController
     {
@@ -17,7 +17,7 @@ namespace Discount.API.Controllers
         {
             _couponRepository = couponRepository;
         }
-        [HttpGet]
+        [HttpGet("GetDiscount/{productId}")]
         [ProducesResponseType(typeof(Coupon), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetDiscount(string productId)
         {
@@ -67,7 +67,7 @@ namespace Discount.API.Controllers
                 return CustomResult(ex.Message, HttpStatusCode.BadRequest);
             }
         }
-        [HttpPut]
+        [HttpDelete("DeleteDiscount/{productId}")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteDiscount(string productId)
         {

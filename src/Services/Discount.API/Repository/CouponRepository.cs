@@ -14,7 +14,7 @@ namespace Discount.API.Repository
         public async Task<bool> CreateDiscount(Coupon coupon)
         {
             var connection = new NpgsqlConnection(_configuration.GetConnectionString("DiscountDB"));
-            var affected = await connection.ExecuteAsync("INSERT INTO Coupon(ProductId,ProductName,Description,Amount) VALUES(@ProductId,@ProductName,@Discription,@Amount)", new { ProductId = coupon.ProductId, ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount });
+            var affected = await connection.ExecuteAsync("INSERT INTO Coupon(ProductId,ProductName,Description,Amount) VALUES(@ProductId,@ProductName,@Description,@Amount)", new { ProductId = coupon.ProductId, ProductName = coupon.ProductName, Description = coupon.Description, Amount = coupon.Amount });
             if (affected > 0)
             {
                 return true;
