@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Ordering.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrderController : BaseController
     {
@@ -19,7 +19,7 @@ namespace Ordering.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
+        [HttpGet("{userName}")]
         [ProducesResponseType(typeof(IEnumerable<OrderVm>),(int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetOrdersByUserName(string userName)
         {
@@ -71,7 +71,7 @@ namespace Ordering.API.Controllers
                 return CustomResult(ex.Message, HttpStatusCode.BadRequest);
             }
         }
-        [HttpDelete]
+        [HttpDelete("{orderId}")]
         [ProducesResponseType(typeof(IEnumerable<string>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteOrder(int orderId)
         {

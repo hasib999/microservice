@@ -26,10 +26,12 @@ namespace Ordering.Application.Features.Orders.Commands.CreateOrder
         public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = _mapper.Map<Order>(request);
+            order.CreatedBy = "1";
+            order.CreatedDate = DateTime.Now;
             bool isOrderPlaced = await _orderRepository.AddAsync(order);
             if (isOrderPlaced)
             {
-                Email email = new Email();
+                EmailMessage email = new EmailMessage();
                 email.Subject = "Your Order has veeb placed.";
                 email.To = order.UserName;
                 email.Body = $"Dear { order.FirstName + " " + order.LastName} <br/><br/> We are excited for you to received your order #{order.Id} and with notify you one it's way.<br/> Thank you for ordering from us.";

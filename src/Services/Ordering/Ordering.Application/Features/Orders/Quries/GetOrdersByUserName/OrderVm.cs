@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ordering.Domain.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Features.Orders.Quries.GetOrdersByUserName
 {
-    public class OrderVm
+    public class OrderVm : EntityBase
     {
         public int Id { get; set; }
         public string UserName { get; set; }
